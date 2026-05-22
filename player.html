@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      overflow: hidden;
+      cursor: none; /* Hide cursor for fullscreen playback */
+    }
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain; /* Keep aspect ratio */
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <video id="videoPlayer" autoplay></video>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoPath = urlParams.get('video');
+    const videoElement = document.getElementById('videoPlayer');
+
+    if (videoPath) {
+      videoElement.src = `file://${videoPath}`;
+    }
+
+    // Close when finished playing
+    videoElement.addEventListener('ended', () => {
+      window.electronAPI.closePlayer();
+    });
+
+    // Close when hitting escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.electronAPI.closePlayer();
+      }
+    });
+
+    // Bring cursor back briefly if moved, then hide it again (optional polish)
+    let timeout;
+    document.addEventListener('mousemove', () => {
+      document.body.style.cursor = 'default';
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        document.body.style.cursor = 'none';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

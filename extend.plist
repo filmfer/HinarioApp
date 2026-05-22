@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSRemovableVolumesUsageDescription</key>
+    <string>Hinário needs access to removable volumes to search and play your MP3/MP4 hymn files from your external drive.</string>
+    <key>NSNetworkVolumesUsageDescription</key>
+    <string>Hinário needs access to network volumes to search and play your MP3/MP4 hymn files.</string>
+  </dict>
+</plist>

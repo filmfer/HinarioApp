@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hinário Adventista 4macOS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Hinário Adventista</h1>
+    
+    <div class="controls">
+      <div class="input-group" style="margin-bottom: 5px;">
+        <button id="selectDirBtn">📁 Escolher Pasta dos Vídeos</button>
+        <span id="currentDirDisplay" style="font-size: 12px; color: #aaa; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Nenhuma pasta selecionada</span>
+      </div>
+
+      <div class="input-group">
+        <label for="searchInput">Procurar Hino (Número ou Nome):</label>
+        <input type="text" id="searchInput" placeholder="ex: 001 ou Santo" autofocus>
+      </div>
+
+      <div class="input-group">
+        <label for="displaySelect">Play on Monitor:</label>
+        <select id="displaySelect">
+          <option value="">Loading displays...</option>
+        </select>
+        <button id="refreshDisplays" title="Refresh Monitors">🔄</button>
+      </div>
+    </div>
+
+    <div id="errorBox" class="error hidden"></div>
+
+    <ul id="resultsList" class="results-list"></ul>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
