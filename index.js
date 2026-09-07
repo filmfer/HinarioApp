@@ -39,8 +39,9 @@ let playerWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 480,
+    height: 360,
+    resizable: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -100,15 +101,15 @@ ipcMain.handle('search-files', async (event, query) => {
       return f.toLowerCase().endsWith('.mp4') && !f.startsWith('._') && !f.startsWith('.');
     });
     
-    // If no query, return first 20
+    // If no query, return first 10
     if (!query) {
-      return { results: mp4Files.slice(0, 20).map(f => ({ name: f, path: path.join(videoDir, f) })) };
+      return { results: mp4Files.slice(0, 10).map(f => ({ name: f, path: path.join(videoDir, f) })) };
     }
 
     const lowerQuery = query.toLowerCase();
     const matches = mp4Files.filter(f => f.toLowerCase().includes(lowerQuery));
     
-    return { results: matches.slice(0, 20).map(f => ({ name: f, path: path.join(videoDir, f) })) };
+    return { results: matches.slice(0, 10).map(f => ({ name: f, path: path.join(videoDir, f) })) };
   } catch (error) {
     if (error.code === 'EPERM' || error.message.includes('operation not permitted')) {
       dialog.showErrorBox(
