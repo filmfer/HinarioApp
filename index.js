@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, dialog, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -36,6 +36,67 @@ function saveConfig() {
 }
 
 let playerWindow;
+let aboutWindow;
+
+function createAboutWindow() {
+  if (aboutWindow) {
+    aboutWindow.focus();
+    return;
+  }
+
+  aboutWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    fullscreenable: false,
+    title: 'About',
+    parent: mainWindow,
+    modal: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true
+    }
+  });
+
+  aboutWindow.loadURL(`data:text/html,
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+          background: #1e1e1e;
+          color: #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          text-align: center;
+          padding: 20px;
+        }
+        h2 { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
+        p { font-size: 13px; color: #aaa; margin-bottom: 8px; }
+        a { color: #007aff; text-decoration: none; font-size: 13px; }
+        a:hover { text-decoration: underline; }
+      </style>
+    </head>
+    <body>
+      <h2>Hinário IASD</h2>
+      <p>Developer: J. Filipe Fernandes</p>
+      <a href="mailto:filmfer@gmail.com">filmfer@gmail.com</a>
+    </body>
+    </html>
+  `);
+
+  aboutWindow.on('closed', () => {
+    aboutWindow = null;
+  });
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -55,6 +116,24 @@ function createWindow() {
 app.whenReady().then(() => {
   loadConfig();
   createWindow();
+
+  // Create application menu with About item
+  const template = [
+    {
+      label: app.name,
+      submenu: [
+        {
+          label: 'About Hinário IASD',
+          click: createAboutWindow
+        },
+        { type: 'separator' },
+        { role: 'quit' }
+      ]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
