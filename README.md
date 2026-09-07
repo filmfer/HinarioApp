@@ -19,7 +19,7 @@ Aplicação desktop para macOS (Apple Silicon M1/M2/M3/M4) que permite reproduzi
 
 ## Instalação
 
-1. Descarregue o ficheiro `.dmg` ou `.zip` da [página de releases](https://github.com/filmfer/meditacao_iasdah/releases)
+1. Descarregue o ficheiro `.dmg` ou `.zip` da [página de releases](https://github.com/filmfer/HinarioApp/releases)
 2. Abra o ficheiro `.dmg` e arraste a aplicação para a pasta `Applications`
 3. Na primeira execução, clique com o botão direito → "Abrir" (necessário para aplicações não assinadas com Developer ID)
 
@@ -41,7 +41,7 @@ A aplicação pode necessitar das seguintes permissões em **System Settings > P
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/filmfer/meditacao_iasdah.git
+git clone https://github.com/filmfer/HinarioApp.git
 cd HinarioApp
 
 # Instalar dependências
